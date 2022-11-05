@@ -42,9 +42,17 @@ class Product {
   }
 
   async postAddProduct(req, res) {
-    let { pName, pDescription, pPrice, pQuantity, pCategory, pOffer, pStatus } =
-      req.body;
-    let images = req.files;
+    let {
+      pName,
+      pDescription,
+      pPrice,
+      pQuantity,
+      pCategory,
+      pOffer,
+      pStatus,
+      pImage,
+    } = req.body;
+    let images = pImage;
     // Validation
     if (
       !pName |
@@ -66,15 +74,15 @@ class Product {
       });
     }
     // Validate Images
-//    else if (images.length !== 1) {
-//      Product.deleteImages(images, "file");
-//      return res.json({ error: "Must need to provide 2 images" });
-//    } 
-      else {
+       else if (images.length !== 1) {
+         Product.deleteImages(images, "file");
+         return res.json({ error: "Must need to provide 2 images" });
+       }
+    else {
       try {
         let allImages = [];
         for (const img of images) {
-          allImages.push(img.filename);
+          allImages.push(img);
         }
         let newProduct = new productModel({
           pImages: allImages,

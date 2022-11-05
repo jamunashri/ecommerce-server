@@ -15,17 +15,16 @@ class Category {
   }
 
   async postAddCategory(req, res) {
-    let { cName, cDescription, cStatus } = req.body;
-    let cImage = req.file.filename;
-    const filePath = `../server/public/uploads/categories/${cImage}`;
-
+    let { cName, cDescription, cStatus, cImage } = req.body;
+    // let cImage = req.file.filename;
+    // const filePath = `../server/public/uploads/categories/${cImage}`;
     if (!cName || !cDescription || !cStatus || !cImage) {
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.log(err);
-        }
+      // fs.unlink(filePath, (err) => {
+      //   if (err) {
+      //     console.log(err);
+      //   }
         return res.json({ error: "All filled must be required" });
-      });
+      // });
     } else {
       cName = toTitleCase(cName);
       try {
