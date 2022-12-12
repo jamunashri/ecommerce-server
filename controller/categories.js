@@ -15,10 +15,10 @@ class Category {
   }
 
   async postAddCategory(req, res) {
-    let { cName, cDescription, cStatus, cImage } = req.body;
+    let { cName, cDescription, cStatus } = req.body;
     // let cImage = req.file.filename;
     // const filePath = `../server/public/uploads/categories/${cImage}`;
-    if (!cName || !cDescription || !cStatus || !cImage) {
+    if (!cName || !cDescription || !cStatus ) {
       // fs.unlink(filePath, (err) => {
       //   if (err) {
       //     console.log(err);
@@ -40,8 +40,7 @@ class Category {
           let newCategory = new categoryModel({
             cName,
             cDescription,
-            cStatus,
-            cImage,
+            cStatus
           });
           await newCategory.save((err) => {
             if (!err) {
